@@ -14,21 +14,6 @@ var DATA=[
     },
     {
         "type": "wall",
-        "name": "wall0",
-        "start": {
-            "x": -2,
-            "y": -2
-        },
-        "end": {
-            "x": -2,
-            "y": 2
-        },
-        "height": 3,
-        "params": ["start", "end", "height"],
-        "func": "f1"
-    },
-    {
-        "type": "wall",
         "name": "wall1",
         "start": {
             "x": -2,
@@ -37,21 +22,6 @@ var DATA=[
         "end": {
             "x": 2,
             "y": 2
-        },
-        "height": 3,
-        "params": ["start", "end", "height"],
-        "func": "f1"
-    },
-    {
-        "type": "wall",
-        "name": "wall2",
-        "start": {
-            "x": 2,
-            "y": 2
-        },
-        "end": {
-            "x": 2,
-            "y": -2
         },
         "height": 3,
         "params": ["start", "end", "height"],

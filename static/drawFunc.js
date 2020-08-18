@@ -29,7 +29,6 @@ function drawTree() {
                 }
             }
         }
-
         if (nodes.length == 1) {
             nodes[0].pos = {
                 x: canvas.width / 2,
@@ -44,24 +43,38 @@ function drawTree() {
                 posX += dimX;
             }
         }
-
         nodes.forEach(e => {
-            e.drawNodes(ctx, nodeArr);
+            e.drawNodes(CTX, nodeArr);
         });
         currentLevel++;
     }   // end while loop
 }   // end function
-
-
+//
+//
+//
 function drawPath(searchResultNodes) {
     searchResultNodes.forEach(node => {
-        node.highlightPath=true;
-        let parents=node.getParentNodes();
-        parents.forEach(parent=>{
-            parent.highlightNode=true;
-            parent.highlightPath=true;
-            console.log(parent.keyName);
-        });
+        getParentsRecursively(node);
+        getChildrenRecursively(node);
     });
-    drawTree();
+}
+
+function getParentsRecursively(node) {
+    let parents = node.getParentNodes();
+    parents.forEach(p => {
+        c = "rgba(255,0,0,0.1)";
+        t = 10;
+        node.connect(p, c, t);
+        getParentsRecursively(p);
+    });
+}
+
+function getChildrenRecursively(node) {
+    let childNodes = node.getChildNodes();
+    childNodes.forEach(r => {
+        c = "rgba(0,0,255,0.1)";
+        t = 10;
+        node.connect(r, c, t);
+        getChildrenRecursively(r);
+    });
 }

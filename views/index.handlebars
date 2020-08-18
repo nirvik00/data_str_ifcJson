@@ -25,7 +25,7 @@
                 </td>
                 <td id="td2">
                     <select name="Query Details" id="queryOption" class="dropdown">
-                        <option value=1>Display Tree</option>
+                        <option value=0>Display Tree</option>
                         <option value=1>Show Path</option>
                         <option value=2>Show Node Details</option>
                         <option value=3>Show Parent Details</option>
@@ -53,14 +53,14 @@
 <script>
     /// global variables ///
     var data = [...DATA];
-    var NodeArr = generateRelation(data);
+    var NodeArr = generateRelation(data); // file: relation.js
 
-    var traversalArray = generateGraphs(data);
+    var traversalArray = generateGraphs(data); // file: graphs.js
     var DfsArray = traversalArray['dfsarr'];
     var BfsArray = traversalArray['bfsarr'];
 
     var canvas = document.getElementById('nodeCanvas');
-    var ctx = canvas.getContext('2d');
+    var CTX = canvas.getContext('2d');
 
     var nodesOnCanvas = [];
 
@@ -81,14 +81,18 @@
     }
     //  end select - dropdown //
 
-    init();
+    init(); // file: same file
 
     window.onresize = function () {
-        init();
+        init(); // file: same file
     };
 
     function init() {
         clearCanvas();
+        NodeArr.forEach(node => {
+            node.highlightNode = false;
+            node.highlightPath = false;
+        });
 
         var arrIndex = parseInt(document.getElementById("selArr").value);
         HT = Math.round(document.getElementById("treeHt").value);
@@ -98,18 +102,15 @@
 
         let numLevels = NodeArr[NodeArr.length - 1].level;
 
-        ctx.canvas.width = window.innerWidth * 9 / 10;
-        ctx.canvas.height = HT * SC * (numLevels + 1);
+        CTX.canvas.width = window.innerWidth * 9 / 10;
+        CTX.canvas.height = (HT * (numLevels + 1));
 
-        // drawTree();
-        runQuery();
+        runQuery(); // file: queryFunc.js
     }
 </script>
 
-
-
 <script>
     document.getElementById("submitQuery").onclick = function () {
-        init();
+        init(); // file: same file
     }
 </script>
