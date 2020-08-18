@@ -1,0 +1,95 @@
+<h1>Index</h1>
+<p id="sysInfo">INFORMATION / NOTE FROM SYSTEM </p>
+<div id="data-container">
+    <div class="slidecontainer">
+        <table>
+            <tr>
+                <td>
+                    <p id="treeHt_p"> Height of tree levels (%): </p>
+                </td>
+                <td>
+                    <input type="range" min="51" max="200" value="100" class="slider" id="treeHt" onchange="init();">
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <p id="radius_p"> Radius of Entities (%): </p>
+                </td>
+                <td>
+                    <input type="range" min="1" max="200" value="70" class="slider" id="radius" onchange="init();">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <hr />
+    <form id="search">
+        <select name="Array Index" id="selArr">
+            <option value="-1">No Selection</option>
+        </select>
+
+        <input type="text" class="inputField" id="searchNode" name='searchNode' placeholder="search by node name...">
+
+        <input type="text" class="inputField" id="searchLevel" name='searchLevel' placeholder="search by tree depth...">
+
+        <input type="button" class="button" value="Submit Query" id="submitQuery" onclick="submitQuery();">
+    </form>
+
+    <hr />
+    <br>
+    <div id="result"></div>
+</div>
+
+<canvas id="nodeCanvas"></canvas>
+
+
+
+<script>
+
+    var data = [...DATA];
+    var nodeArr = generateRelation(data);
+    var copyNodeArr = [...nodeArr];
+    init();
+
+    window.onresize = function () {
+        init();
+    };
+
+    function init() {
+        let v = document.getElementById('treeHt').value;
+        document.getElementById('treeHt_p').innerHTML = "Height of tree levels (%): " + v;
+
+        let r = document.getElementById('radius').value;
+        document.getElementById('radius_p').innerHTML = "radius of entities (%): " + r;
+
+
+        var div2 = document.getElementById("selArr");
+        while (div2.hasChildNodes()) {
+            div2.removeChild(div2.firstChild);
+        }
+
+        var b0 = document.createElement('option');
+        b0.text = "No Selection";
+        b0.value = -1;
+        div2.appendChild(b0);
+
+        for (var i = 0; i < data.length; i++) {
+            var b = document.createElement('option');
+            b.text = "Array " + i;
+            b.value = i;
+            div2.appendChild(b);
+        }
+
+        drawOnCanvas(copyNodeArr);
+    }
+</script>
+
+
+
+<script>
+    document.getElementById("submitQuery").onclick=function() {
+        drawOnCanvas(copyNodeArr);
+    }
+</script>
