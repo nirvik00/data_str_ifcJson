@@ -1,7 +1,7 @@
 //
 //
 //
-
+//
 function Node(keyname, val, lvl, arrIndex) {
     this.keyName = keyname;
     this.value = val;
@@ -16,7 +16,13 @@ function Node(keyname, val, lvl, arrIndex) {
     this.getParentNodes = () => {
         return this.parentNodes;
     }
+
     this.mosDist=Number.MAX_SAFE_INTEGER + 1;
+
+    this.getParentNodes= () =>{
+        return this.parentNodes;
+    }
+
     this.getParentNodesKeynames = () => {
         let parentKeyNames = [];
         this.parentNodes.forEach(e => {
@@ -24,18 +30,21 @@ function Node(keyname, val, lvl, arrIndex) {
         })
         return parentKeyNames;
     }
+
     this.hasChild = () => {
         if (this.getChildNodes().length > 0) {
             return true;
         }
         return false;
     }
+
     this.hasParent = () => {
         if (this.getParentNodes().length > 0) {
             return true;
         }
         return false;
     }
+
     this.getSiblings = (nodeArr) => {
         let siblingArr = [];
         let parents = this.getParentNodes();
@@ -63,6 +72,7 @@ function Node(keyname, val, lvl, arrIndex) {
             sib.push(e.keyName);
         });
     }
+
     this.print = () => {
         let s = '--> ' + this.keyName + "\n";
         s += '\tparent key-> ' + this.getParentNodesKeynames() + "\n";
@@ -72,11 +82,31 @@ function Node(keyname, val, lvl, arrIndex) {
         s += '\n';
         console.log(s);
     }
-    this.drawNodes = (ctx, nodeArr, color, tk) => {
+
+    this.highlightNode=false;
+    this.highlightPath=false;
+
+    this.drawNodes = (ctx, nodeArr) => {
         SC = (document.getElementById('treeHt').value / 100);
         Radius = (document.getElementById('radius').value / 100);
 
-        ctx.strokeStyle = color;
+        let nodeColor='rgba(0,0,0,0.25)';
+        let connectColor='rgb(0,0,0,0.25)'
+        let tk=1;
+        if(this.highlightNode == true){
+            nodeColor='rgb(255,0,0)';
+        }
+        if(this.highlightPath == true){
+            nodeColor='rgb(255,0,0)';
+            connectColor= 'rgba(0,0,255,0.5)'
+            tk=15;
+        }else{
+            tk=1;
+        }
+
+
+        // connect parent-child nodes
+        ctx.strokeStyle = connectColor;
         let parents = this.getParentNodes();
         parents.forEach(e => {
             if (e.pos.x > -1 && e.pos.y > -1) {
@@ -87,7 +117,8 @@ function Node(keyname, val, lvl, arrIndex) {
             }
         });
 
-        ctx.fillStyle = color;// 'rgba(0,0,0,0.25)';
+        // draw the node
+        ctx.fillStyle = nodeColor;// 'rgba(0,0,0,0.25)';
         var R = ctx.canvas.width * SC / 50;
         var F = ctx.canvas.width * SC / 60;
         ctx.lineWidth = tk;
@@ -95,12 +126,12 @@ function Node(keyname, val, lvl, arrIndex) {
         ctx.arc(this.pos.x, this.pos.y, R * Radius, 0, 2 * Math.PI);
         ctx.fill();
 
+        // write keyname
         var W = Math.round(ctx.measureText(this.keyName).width);
         ctx.fillStyle = 'rgb(255,255,0)';
         ctx.beginPath();
         ctx.rect(this.pos.x - 10, this.pos.y + 27, W, F);
         ctx.fill();
-
         ctx.font = Radius * 20 + "px Arial";
         let x = this.pos.x;
         let y = this.pos.y;

@@ -1,23 +1,17 @@
+//
+//
+//
+//
+function drawTree() {
+    let nodesOnCanvas = [];
 
-function clearCanvas() {
-    var canvas = document.getElementById('nodeCanvas');
-    var ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-}
-
-function drawOnCanvas() {
-    let nodeArr = copyNodeArr;
-    clearCanvas();
     var arrIndex = parseInt(document.getElementById("selArr").value);
     HT = Math.round(document.getElementById("treeHt").value);
     SC = Math.round(document.getElementById('treeHt').value / 100);
     Radius = (document.getElementById('radius').value / 100);
-    document.getElementById("treeHt_p").innerHTML = "Height of tree levels (%): " + HT;
 
+    let nodeArr = NodeArr;
     let numLevels = nodeArr[nodeArr.length - 1].level;
-
-    ctx.canvas.width = window.innerWidth * 9 / 10;
-    ctx.canvas.height = HT * SC * (numLevels + 1);
 
     let currentLevel = 0;
     while (currentLevel < numLevels + 1) {
@@ -50,14 +44,24 @@ function drawOnCanvas() {
                 posX += dimX;
             }
         }
+
         nodes.forEach(e => {
-            let color = 'rgba(0,0,0,0.25)';
-            let tk = 1;
-            e.drawNodes(ctx, nodeArr, color, tk);
+            e.drawNodes(ctx, nodeArr);
         });
         currentLevel++;
     }   // end while loop
-
-    console.log('canvas rendered...');
 }   // end function
 
+
+function drawPath(searchResultNodes) {
+    searchResultNodes.forEach(node => {
+        node.highlightPath=true;
+        let parents=node.getParentNodes();
+        parents.forEach(parent=>{
+            parent.highlightNode=true;
+            parent.highlightPath=true;
+            console.log(parent.keyName);
+        });
+    });
+    drawTree();
+}
