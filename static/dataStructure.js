@@ -1,3 +1,6 @@
+//
+//
+//
 
 function Node(keyname, val, lvl, arrIndex) {
     this.keyName = keyname;
@@ -13,6 +16,7 @@ function Node(keyname, val, lvl, arrIndex) {
     this.getParentNodes = () => {
         return this.parentNodes;
     }
+    this.mosDist=Number.MAX_SAFE_INTEGER + 1;
     this.getParentNodesKeynames = () => {
         let parentKeyNames = [];
         this.parentNodes.forEach(e => {
@@ -58,22 +62,21 @@ function Node(keyname, val, lvl, arrIndex) {
         siblingArr.forEach(e => {
             sib.push(e.keyName);
         });
-        //console.log(this.keyname, sib.toString());
     }
     this.print = () => {
-        let s='--> '+ this.keyName+"\n";
-        s+='\tparent key-> '+this.getParentNodesKeynames()+"\n";
-        s+='\tvalue->'+ this.value+"\n";
-        s+='\tarray-index->'+this.arrayIndex+"\n";
-        s+='\ttree-depth->'+this.level+"\n";
-        s+='\n';
+        let s = '--> ' + this.keyName + "\n";
+        s += '\tparent key-> ' + this.getParentNodesKeynames() + "\n";
+        s += '\tvalue->' + this.value + "\n";
+        s += '\tarray-index->' + this.arrayIndex + "\n";
+        s += '\ttree-depth->' + this.level + "\n";
+        s += '\n';
         console.log(s);
     }
-    this.drawNodes = (ctx, nodeArr) => {
+    this.drawNodes = (ctx, nodeArr, color, tk) => {
         SC = (document.getElementById('treeHt').value / 100);
         Radius = (document.getElementById('radius').value / 100);
 
-        ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+        ctx.strokeStyle = color;
         let parents = this.getParentNodes();
         parents.forEach(e => {
             if (e.pos.x > -1 && e.pos.y > -1) {
@@ -84,10 +87,10 @@ function Node(keyname, val, lvl, arrIndex) {
             }
         });
 
-        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        ctx.fillStyle = color;// 'rgba(0,0,0,0.25)';
         var R = ctx.canvas.width * SC / 50;
         var F = ctx.canvas.width * SC / 60;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = tk;
         ctx.beginPath();
         ctx.arc(this.pos.x, this.pos.y, R * Radius, 0, 2 * Math.PI);
         ctx.fill();
@@ -105,3 +108,7 @@ function Node(keyname, val, lvl, arrIndex) {
         ctx.fillText(this.keyName, this.pos.x - 10, this.pos.y + 40);
     }
 }
+
+
+
+

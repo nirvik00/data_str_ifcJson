@@ -1,23 +1,28 @@
-//
-function drawOnCanvas(nodeArr) {
-    var arrIndex=parseInt(document.getElementById("selArr").value);
-    // let arrIndex = 1;
 
+function clearCanvas() {
+    var canvas = document.getElementById('nodeCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+function drawOnCanvas() {
+    let nodeArr = copyNodeArr;
     clearCanvas();
+    var arrIndex = parseInt(document.getElementById("selArr").value);
+    HT = Math.round(document.getElementById("treeHt").value);
     SC = Math.round(document.getElementById('treeHt').value / 100);
     Radius = (document.getElementById('radius').value / 100);
+    document.getElementById("treeHt_p").innerHTML = "Height of tree levels (%): " + HT;
 
     let numLevels = nodeArr[nodeArr.length - 1].level;
 
-    var canvas = document.getElementById('nodeCanvas');
-    var ctx = canvas.getContext('2d');
     ctx.canvas.width = window.innerWidth * 9 / 10;
-    ctx.canvas.height = 150 * numLevels;
+    ctx.canvas.height = HT * SC * (numLevels + 1);
 
     let currentLevel = 0;
     while (currentLevel < numLevels + 1) {
         let nodes = [];
-        let posY = 20 + (currentLevel * canvas.height * SC / (numLevels + 1));
+        let posY = 20 + (currentLevel * canvas.height * SC / (numLevels));
         for (let i = 0; i < nodeArr.length; i++) {
             let node = nodeArr[i];
             if (node.level === currentLevel) {
@@ -32,7 +37,10 @@ function drawOnCanvas(nodeArr) {
         }
 
         if (nodes.length == 1) {
-            nodes[0].pos = { x: canvas.width / 2, y: posY };
+            nodes[0].pos = {
+                x: canvas.width / 2,
+                y: posY
+            };
         } else {
             let a = 20;
             let dimX = (canvas.width - a) / nodes.length;
@@ -43,8 +51,13 @@ function drawOnCanvas(nodeArr) {
             }
         }
         nodes.forEach(e => {
-            e.drawNodes(ctx, nodeArr);
+            let color = 'rgba(0,0,0,0.25)';
+            let tk = 1;
+            e.drawNodes(ctx, nodeArr, color, tk);
         });
         currentLevel++;
-    }// end while loop
-}// end function
+    }   // end while loop
+
+    console.log('canvas rendered...');
+}   // end function
+

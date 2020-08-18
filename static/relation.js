@@ -1,5 +1,4 @@
-//
-//
+
 function generateRelation(data) {
     // console.log(data);
     var NodeArr = [];
@@ -14,14 +13,9 @@ function generateRelation(data) {
     NodeArr.sort((a, b) => (a.level < b.level) ? -1 : 1);
     NodeArr.sort((a, b) => (a.arrayIndex < b.arrayIndex) ? -1 : 1);
 
-    /* NodeArr.forEach(e => {
-        e.print();
-    }); */
-
     return NodeArr;
 }
-//
-//
+
 function getChildrenJSON(parent, data, level, nodeArr) {
     level++;
     if (typeof (data) == 'object') {
@@ -37,11 +31,3 @@ function getChildrenJSON(parent, data, level, nodeArr) {
         nodeArr.push(node);
     }
 }
-
-function clearCanvas() {
-    var canvas = document.getElementById('nodeCanvas');
-    var ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-}
-//
-//

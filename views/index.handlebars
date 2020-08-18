@@ -1,60 +1,66 @@
-<h1>Index</h1>
-<p id="sysInfo">INFORMATION / NOTE FROM SYSTEM </p>
 <div id="data-container">
     <div class="slidecontainer">
-        <table>
+        <table id="queries">
             <tr>
                 <td>
                     <p id="treeHt_p"> Height of tree levels (%): </p>
                 </td>
                 <td>
-                    <input type="range" min="51" max="200" value="100" class="slider" id="treeHt" onchange="init();">
+                    <input type="range" min="51" max="200" value="100" class="slider" id="treeHt">
                 </td>
             </tr>
-        </table>
-        <table>
             <tr>
                 <td>
                     <p id="radius_p"> Radius of Entities (%): </p>
                 </td>
                 <td>
-                    <input type="range" min="1" max="200" value="70" class="slider" id="radius" onchange="init();">
+                    <input type="range" min="1" max="200" value="70" class="slider" id="radius">
+                </td>
+            </tr>
+        </table>
+        <table id="queries2">
+            <tr>
+                <td id="td2">
+                    <select name="Array Index" id="selArr" class="dropdown"></select>
+                </td>
+                <td id="td2">
+                    <select name="Query Details" id="queryOption" class="dropdown">
+                        <option value=1>Show Path</option>
+                        <option value=2>Show Node Details</option>
+                        <option value=3>Show Parent Details</option>
+                        <option value=4>Show Child Details</option>
+                    </select>
+                </td>
+                <td id="td2">
+                    <input type="text" class="inputField" id="searchNode" name='searchNode'
+                        placeholder="search by node name...">
+                </td>
+                <td id="td2">
+                    <input type="button" class="button" value="Submit Query" id="submitQuery" onclick="submitQuery();">
                 </td>
             </tr>
         </table>
     </div>
     <br>
-    <hr />
-    <form id="search">
-        <select name="Array Index" id="selArr">
-            <option value="-1">No Selection</option>
-        </select>
 
-        <input type="text" class="inputField" id="searchNode" name='searchNode' placeholder="search by node name...">
-
-        <input type="text" class="inputField" id="searchLevel" name='searchLevel' placeholder="search by tree depth...">
-
-        <input type="button" class="button" value="Submit Query" id="submitQuery" onclick="submitQuery();">
-    </form>
-
-    <hr />
     <br>
     <div id="result"></div>
 </div>
 
 <canvas id="nodeCanvas"></canvas>
 
-
-
 <script>
-
+    /// global variables ///
     var data = [...DATA];
-    var nodeArr = generateRelation(data);
-    var copyNodeArr = [...nodeArr];
+    var NodeArr = generateRelation(data);
+    var copyNodeArr = [...NodeArr];
+    var canvas = document.getElementById('nodeCanvas');
+    var ctx = canvas.getContext('2d');
+
     init();
 
     window.onresize = function () {
-        init();
+        drawOnCanvas();
     };
 
     function init() {
@@ -71,7 +77,7 @@
         }
 
         var b0 = document.createElement('option');
-        b0.text = "No Selection";
+        b0.text = "All Selected";
         b0.value = -1;
         div2.appendChild(b0);
 
@@ -82,14 +88,14 @@
             div2.appendChild(b);
         }
 
-        drawOnCanvas(copyNodeArr);
+        drawOnCanvas();
     }
 </script>
 
 
 
 <script>
-    document.getElementById("submitQuery").onclick=function() {
-        drawOnCanvas(copyNodeArr);
+    document.getElementById("submitQuery").onclick = function () {
+        drawOnCanvas();
     }
 </script>
