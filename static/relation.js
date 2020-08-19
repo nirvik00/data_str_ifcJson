@@ -73,43 +73,6 @@ function verifyNodes2d(nodeArr, nodeArr2) {
     if (match > 0) return true; // matched 
     else return false; // not mathced
 }
-
-//
-//
-function generateGraphs(data) {
-    // DFS -> depth-first-search
-    var dfsArr = [];
-    for (let i = 0; i < data.length; i++) {
-        traverseDFS("arrayIndex-" + i, data[i], dfsArr);
-    }
-    var maxD = 0;
-    for (var i = 0; i < dfsArr.length; i++) {
-        if (dfsArr[i].split('.').length > maxD) {
-            maxD = dfsArr[i].split('.').length;
-        }
-    }
-    // BFS -> breadth-first-search
-    var bfsArr = [];
-    var k = 0;
-    for (var i = 0; i < maxD; i++) {
-        arr3 = [];
-        for (var j = 0; j < dfsArr.length; j++) {
-            var b = dfsArr[j].split('.');
-            if (b.length >= k) {
-                arr3.push(b[k]);
-            }
-        }
-        bfsArr.push(arr3);
-        k++;
-    }
-    var maxL = 0;
-    for (var i = 0; i < bfsArr.length; i++) {
-        if (bfsArr[i].length > maxL) {
-            maxL = bfsArr[i].length;
-        }
-    }
-    return { 'dfsarr': dfsArr, 'bfsarr': bfsArr, 'maxd': maxD, 'maxl': maxL };
-}
 //
 //
 function traverseDFS(p, o, dfsArr) {

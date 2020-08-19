@@ -11,14 +11,28 @@
             border: 1px solid grey;
         }
 
-        table,
-        th,
-        td {
-            
+
+        .dynamic-table {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            width:100;
         }
 
-        table {
-            width: 150%;
+        .dynamic-cell {
+            font-size: 10px;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .dynamic-cell:hover {
+            color: black;
+            background: #f4f4f4;
+        }
+
+        .dynamic-cell-header {
+            background-color: 'rgb(0,200,200)';
+            border: 1px solid grey;
+            text-align: center;
         }
 
         #myCanvas {}
@@ -45,7 +59,7 @@
             padding: 6px 12px;
             text-decoration: none;
             text-shadow: 0px 1px 0px #307188;
-            width:100%;
+            width: 100%;
         }
 
         .button:hover {
@@ -125,6 +139,8 @@
 
 <body>
     <script src="/static/data.js"></script>
+    <script src="/static/janData.js"></script>
+
     <script src="/static/queryFunc.js"></script>
     <script src="/static/drawFunc.js"></script>
     <script src="/static/relation.js"></script>

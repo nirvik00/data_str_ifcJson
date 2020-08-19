@@ -27,9 +27,7 @@
                     <select name="Query Details" id="queryOption" class="dropdown">
                         <option value=0>Display Tree</option>
                         <option value=1>Show Path</option>
-                        <option value=2>Show Node Details</option>
-                        <option value=3>Show Parent Details</option>
-                        <option value=4>Show Child Details</option>
+                        <option value=2>Tabulate Node </option>
                     </select>
                 </td>
                 <td id="td2">
@@ -52,15 +50,12 @@
 
 <script>
     /// global variables ///
-    var data = [...DATA];
+    var data = [...JANDATA];
+    // var data = [...DATA]; 
     var NodeArr = generateRelation(data); // file: relation.js
 
-    var traversalArray = generateGraphs(data); // file: graphs.js
-    var DfsArray = traversalArray['dfsarr'];
-    var BfsArray = traversalArray['bfsarr'];
-
-    var canvas = document.getElementById('nodeCanvas');
-    var CTX = canvas.getContext('2d');
+    var CANVAS = document.getElementById('nodeCanvas');
+    var CTX = CANVAS.getContext('2d');
 
     var nodesOnCanvas = [];
 
@@ -80,6 +75,7 @@
         div2.appendChild(b);
     }
     //  end select - dropdown //
+
 
     init(); // file: same file
 

@@ -1,9 +1,8 @@
 //
 //
 //
-//
 function Node(keyname, val, lvl, arrIndex) {
-    this.keyName = keyname.toString();
+    this.keyName = keyname.toString().trim().toLowerCase();
     this.value = val;
     this.arrayIndex = parseInt(arrIndex);
     this.level = lvl;
@@ -55,6 +54,7 @@ function Node(keyname, val, lvl, arrIndex) {
         s += '\ttree-depth->' + this.level + "\n";
         s += '\n';
         console.log(s);
+        return s;
     }
     ////
 
@@ -64,8 +64,8 @@ function Node(keyname, val, lvl, arrIndex) {
         SC = (document.getElementById('treeHt').value / 100);
         Radius = (document.getElementById('radius').value / 100);
 
-        let nodeColor = 'rgba(0,0,0,0.25)';
-        let connectColor = 'rgb(0,0,0,0.25)'
+        let nodeColor = 'rgba(120,120,120,0.25)';
+        let connectColor = 'rgb(200,200,200,0.25)'
         let tk = 1;
         if (this.highlightNode == true) {
             nodeColor = 'rgb(255,0,0)';
@@ -93,25 +93,34 @@ function Node(keyname, val, lvl, arrIndex) {
         CTX.fill();
 
         // write keyname
-        var W = Math.round(CTX.measureText(this.keyName).width);
+        let name=this.keyName;
+        if(this.keyName>10){
+            let name=this.keyName.slice(0,5);
+        }
+        var W = Math.round(CTX.measureText(name).width);
         CTX.fillStyle = 'rgb(255,255,0)';
         CTX.beginPath();
-        CTX.rect(this.pos.x - 10, this.pos.y + 27, W, F);
+        CTX.rect(this.pos.x - 10, this.pos.y + 20, W, F);
         CTX.fill();
         CTX.font = Radius * 20 + "px Arial";
         let x = this.pos.x;
         let y = this.pos.y;
         CTX.fillStyle = 'rgba(0,0,0,1)';
-        CTX.fillText(this.keyName, this.pos.x - 10, this.pos.y + 40);
+        CTX.fillText(name, this.pos.x - 10, this.pos.y + 40);
     }
 
     this.connect = (node, connectColor, tk) => {
         CTX.strokeStyle = connectColor;
         CTX.lineWidth = tk;
         CTX.beginPath();
-        CTX.moveTo(node.pos.x, node.pos.y);
-        CTX.lineTo(this.pos.x, this.pos.y);
-        CTX.stroke();
+        if(node.pos.x>0 || node.pos.y>0 || this.pos.x>0 || this.pos.y>0){
+            if(node.pos.x<500 || node.pos.y<500 || this.pos.x<500 || this.pos.y<500){
+                CTX.moveTo(node.pos.x, node.pos.y);
+                CTX.lineTo(this.pos.x, this.pos.y);
+                CTX.stroke();
+            }
+
+        }
     }
 }
 
