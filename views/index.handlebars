@@ -1,3 +1,6 @@
+<h1>IFC JSON DATA PROJECT</h1>
+
+
 <div id="data-container">
     <div class="slidecontainer">
         <table id="queries">
@@ -11,7 +14,7 @@
             </tr>
             <tr>
                 <td>
-                    <p id="radius_p"> Radius of Entities (%): </p>
+                    <p id="radius_p"> Radius of Nodes (%): </p>
                 </td>
                 <td>
                     <input type="range" min="1" max="200" value="10" class="slider" id="radius" onchange="init()">
@@ -78,12 +81,17 @@
         HT = Math.round(document.getElementById("treeHt").value);
         SC = Math.round(document.getElementById('treeHt').value / 100);
         Radius = (document.getElementById('radius').value / 100);
+
+
         document.getElementById("treeHt_p").innerHTML = "Height of tree levels (%): " + HT;
+
+        document.getElementById("radius_p").innerHTML = "Radius of Nodes (%):  " + Radius*100;
+        
 
         let numLevels = NodeArr[NodeArr.length - 1].level;
 
         CTX.canvas.width = window.innerWidth * 9 / 10;
-        CTX.canvas.height = (HT * (numLevels + 1));
+        CTX.canvas.height = (HT * (numLevels-1 )) + 20;
 
         runQuery(); // file: queryFunc.js
     }

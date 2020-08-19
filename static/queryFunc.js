@@ -18,7 +18,7 @@ function runQuery() {
         let divxs= document.getElementById('dynamicTableId');
         divxs.remove();
     }catch(e){
-        console.log("error\n", e)
+        //console.log("error\n", e)
     }
 
     CANVAS.style.display='block';

@@ -64,8 +64,8 @@ function Node(keyname, val, lvl, arrIndex) {
 
     ////
     this.drawNodes = (CTX, nodeArr) => {
-        SC = (document.getElementById('treeHt').value / 100);
-        Radius = (document.getElementById('radius').value / 100);
+        let HT = (document.getElementById('treeHt').value / 100);
+        let Radius = (document.getElementById('radius').value / 100);
 
         let nodeColor = 'rgba(120,120,120,0.25)';
         let connectColor = 'rgb(150,150,150,0.5)'
@@ -88,11 +88,11 @@ function Node(keyname, val, lvl, arrIndex) {
 
         // draw the node
         CTX.fillStyle = nodeColor;// 'rgba(0,0,0,0.25)';
-        var R = CTX.canvas.width * SC / 50;
-        var F = CTX.canvas.width * SC / 60;
+        var R = CTX.canvas.width * HT / 70;
+        var F = CTX.canvas.width * HT / 60;
         CTX.lineWidth = tk;
         CTX.beginPath();
-        CTX.arc(this.pos.x, this.pos.y, R * Radius, 0, 2 * Math.PI);
+        CTX.arc(this.pos.x, this.pos.y, R * Radius/2, 0, 2 * Math.PI);
         CTX.fill();
 
         // write keyname
@@ -103,13 +103,13 @@ function Node(keyname, val, lvl, arrIndex) {
         var W = Math.round(CTX.measureText(name).width);
         CTX.fillStyle = 'rgb(255,255,0)';
         CTX.beginPath();
-        CTX.rect(this.pos.x - 10, this.pos.y + 20, W, F);
+        CTX.rect(this.pos.x - 10, this.pos.y + ((R * Radius/2)+5), W, Radius * 20);
         CTX.fill();
         CTX.font = Radius * 20 + "px Arial";
         let x = this.pos.x;
         let y = this.pos.y;
         CTX.fillStyle = 'rgba(0,0,0,1)';
-        CTX.fillText(name, this.pos.x - 10, this.pos.y + 40);
+        CTX.fillText(name, this.pos.x - 10, this.pos.y + ((R * Radius/2) + 20));
     }
 
     ////
@@ -123,7 +123,6 @@ function Node(keyname, val, lvl, arrIndex) {
                 CTX.lineTo(this.pos.x, this.pos.y);
                 CTX.stroke();
             }
-
         }
     }
 }

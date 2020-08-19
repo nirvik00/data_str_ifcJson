@@ -14,7 +14,7 @@ function drawTree() {
     let currentLevel = 0;
     while (currentLevel < numLevels + 1) {
         let nodes = [];
-        let posY = 20 + (currentLevel * CANVAS.height / (numLevels + 2));
+        let posY = 20 + (currentLevel * CANVAS.height / (numLevels + 1));
         for (let i = 0; i < nodeArr.length; i++) {
             let node = nodeArr[i];
             if (node.level === currentLevel) {
@@ -34,7 +34,7 @@ function drawTree() {
             };
         } else {
             let a = 20;
-            let dimX = (CANVAS.width - a) / nodes.length;
+            let dimX = (CANVAS.width - 2.5*a) / nodes.length;
             let posX = 1.5 * a;
             for (let i = 0; i < nodes.length; i++) {
                 nodes[i].pos = { x: posX, y: posY };
@@ -99,12 +99,12 @@ function displayNodeDetails(searchResultNodes) {
     let td5 = document.createElement('th');
     td5.innerHTML = 'Tree-Depth';
 
-    td0.className = "dynamic-cell-header";
-    td1.className = "dynamic-cell-header";
-    td2.className = "dynamic-cell-header";
-    td3.className = "dynamic-cell-header";
-    td4.className = "dynamic-cell-header";
-    td5.className = "dynamic-cell-header";
+    td0.setAttribute("id", "dynamic-cell-header");
+    td1.setAttribute("id", "dynamic-cell-header");
+    td2.setAttribute("id", "dynamic-cell-header");
+    td3.setAttribute("id", "dynamic-cell-header");
+    td4.setAttribute("id", "dynamic-cell-header");
+    td5.setAttribute("id", "dynamic-cell-header");
 
     tr.appendChild(td0);
     tr.appendChild(td1);
@@ -113,6 +113,9 @@ function displayNodeDetails(searchResultNodes) {
     tr.appendChild(td4);
     tr.appendChild(td5);
     tbl.appendChild(tr);
+
+    tr.setAttribute("id", "dynamic-row-header");
+
 
     var arrIndex = parseInt(document.getElementById('selArr').value);
 
@@ -160,12 +163,14 @@ function getRows(node) {
     let td5 = document.createElement('td');
     td5.innerHTML = node.level;
 
-    td0.clasName = "dynamic-cell";
-    td1.clasName = "dynamic-cell";
-    td2.clasName = "dynamic-cell";
-    td3.clasName = "dynamic-cell";
-    td4.clasName = "dynamic-cell";
-    td5.clasName = "dynamic-cell";
+    td0.setAttribute("id", "dynamic-cell");
+    td1.setAttribute("id", "dynamic-cell");
+    td2.setAttribute("id", "dynamic-cell");
+    td3.setAttribute("id", "dynamic-cell");
+    td4.setAttribute("id", "dynamic-cell");
+    td5.setAttribute("id", "dynamic-cell");
+
+    tr.setAttribute("id", "dynamic-row");
 
     tr.appendChild(td0);
     tr.appendChild(td1);
