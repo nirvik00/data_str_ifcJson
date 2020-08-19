@@ -37,6 +37,9 @@
                 <td id="td2">
                     <input type="button" class="button" value="Submit Query" id="submitQuery" onclick="submitQuery();">
                 </td>
+                <td id="td2">
+                    <input type="button" class="button" value="draw3d" id="draw3d" onclick="submit3dQuery();">
+                </td>
             </tr>
         </table>
     </div>
@@ -47,6 +50,8 @@
 </div>
 
 <canvas id="nodeCanvas"></canvas>
+<div id="div3d"></div>
+
 
 <script>
     /// global variables ///
@@ -108,5 +113,15 @@
 <script>
     document.getElementById("submitQuery").onclick = function () {
         init(); // file: same file
+    }
+</script>
+
+
+<script>
+    var scene3d, camera3d, lights3d, controls3d, renderer3d;
+    var meshArr=[]
+    function submit3dQuery() {
+        CANVAS.style.display = 'none';
+        init3d();
     }
 </script>

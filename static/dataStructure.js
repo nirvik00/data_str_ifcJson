@@ -56,16 +56,16 @@ function Node(keyname, val, lvl, arrIndex) {
         console.log(s);
         return s;
     }
+
+
     ////
-
     this.highlightNode = false;
-
     this.drawNodes = (CTX, nodeArr) => {
         SC = (document.getElementById('treeHt').value / 100);
         Radius = (document.getElementById('radius').value / 100);
 
         let nodeColor = 'rgba(120,120,120,0.25)';
-        let connectColor = 'rgb(200,200,200,0.25)'
+        let connectColor = 'rgb(150,150,150,0.5)'
         let tk = 1;
         if (this.highlightNode == true) {
             nodeColor = 'rgb(255,0,0)';
