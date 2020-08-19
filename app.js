@@ -17,7 +17,7 @@ app.get('/display', (req, res) => {
     res.render('display');
 });
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`server started on ${port}`);
 })
