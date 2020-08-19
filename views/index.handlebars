@@ -55,8 +55,10 @@
 
 <script>
     /// global variables ///
+    // var data = [...PDATA];
     var data = [...JANDATA];
     // var data = [...DATA]; 
+    // var data=[...PDATA2];
     var NodeArr = generateRelation(data); // file: relation.js
 
     var CANVAS = document.getElementById('nodeCanvas');
@@ -89,6 +91,9 @@
     };
 
     function init() {
+        let div = document.getElementById("div3d");
+        div.style.display='none';
+
         clearCanvas();
         NodeArr.forEach(node => {
             node.highlightNode = false;
@@ -119,9 +124,14 @@
 
 <script>
     var scene3d, camera3d, lights3d, controls3d, renderer3d;
-    var meshArr=[]
+    var meshArr = []
     function submit3dQuery() {
         CANVAS.style.display = 'none';
+        let div = document.getElementById("div3d");
+        div.style.display='block';
+        while(div.hasChildNodes()){
+            div.removeChild(div.firstChild);
+        }
         init3d();
     }
 </script>
