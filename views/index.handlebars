@@ -14,28 +14,37 @@
                     <p id="radius_p"> Radius of Entities (%): </p>
                 </td>
                 <td>
-                    <input type="range" min="1" max="200" value="70" class="slider" id="radius" onchange="init()">
+                    <input type="range" min="1" max="200" value="10" class="slider" id="radius" onchange="init()">
                 </td>
             </tr>
         </table>
         <table id="queries2">
             <tr>
                 <td id="td2">
-                    <select name="Array Index" id="selArr" class="dropdown"></select>
+                    <select name="Data Set" id="selData" class="dropdown" onchange="updateDataFromFile()">
+                        <option value=0>Complete JSON, (no 3d) </option>
+                        <option value=1>IFC JSON wall/door</option>
+                    </select>
                 </td>
                 <td id="td2">
-                    <select name="Query Details" id="queryOption" class="dropdown">
+                    <select name="Array Index" id="selArr" class="dropdown" onchange="init()"
+                        onchange="updateDataFromFile()"></select>
+                </td>
+                <td id="td2">
+                    <select name="Query Details" id="queryOption" class="dropdown" onchange="init()">
                         <option value=0>Display Tree</option>
                         <option value=1>Show Path</option>
                         <option value=2>Tabulate Node </option>
                     </select>
                 </td>
+            </tr>
+            <tr>
                 <td id="td2">
                     <input type="text" class="inputField" id="searchNode" name='searchNode'
                         placeholder="search by node name...">
                 </td>
                 <td id="td2">
-                    <input type="button" class="button" value="Submit Query" id="submitQuery" onclick="submitQuery();">
+                    <input type="button" class="button" value="Submit Query" id="submitQuery" onclick="init();">
                 </td>
                 <td id="td2">
                     <input type="button" class="button" value="draw3d" id="draw3d" onclick="submit3dQuery();">
@@ -44,60 +53,25 @@
         </table>
     </div>
     <br>
-
-    <br>
-    <div id="result"></div>
 </div>
+
+<div id="result"></div>
 
 <canvas id="nodeCanvas"></canvas>
 <div id="div3d"></div>
 
 
 <script>
-    /// global variables ///
-    // var data = [...PDATA];
-    var data = [...JANDATA];
-    // var data = [...DATA]; 
-    // var data=[...PDATA2];
-    var NodeArr = generateRelation(data); // file: relation.js
-
-    var CANVAS = document.getElementById('nodeCanvas');
-    var CTX = CANVAS.getContext('2d');
-
-    var nodesOnCanvas = [];
-
-    // start select - dropdown //
-    var div2 = document.getElementById("selArr");
-    while (div2.hasChildNodes()) {
-        div2.removeChild(div2.firstChild);
-    }
-    var b0 = document.createElement('option');
-    b0.text = "All Selected";
-    b0.value = -1;
-    div2.appendChild(b0);
-    for (var i = 0; i < data.length; i++) {
-        var b = document.createElement('option');
-        b.text = "Array " + i;
-        b.value = i;
-        div2.appendChild(b);
-    }
-    //  end select - dropdown //
-
-
-    init(); // file: same file
-
-    window.onresize = function () {
-        init(); // file: same file
-    };
-
     function init() {
         let div = document.getElementById("div3d");
-        div.style.display='none';
+        div.style.display = 'none';
 
+        // updateDataFromFile(); // updates data, NodeArr variables
+
+        // push data to canvas
         clearCanvas();
         NodeArr.forEach(node => {
             node.highlightNode = false;
-            node.highlightPath = false;
         });
 
         var arrIndex = parseInt(document.getElementById("selArr").value);
@@ -113,25 +87,76 @@
 
         runQuery(); // file: queryFunc.js
     }
-</script>
 
-<script>
-    document.getElementById("submitQuery").onclick = function () {
-        init(); // file: same file
+    function updateDataFromFile() {
+        // update data from file
+        dataFile = parseInt(document.getElementById('selData').value);
+        if (dataFile === 0) {
+            data = [...DATA];
+        } else {
+            data = [...JANDATA];
+        }
+        NodeArr = generateRelation(data); // file: relation.js
+        updateArrayData();
     }
-</script>
 
+    // start select - dropdown //
+    function updateArrayData() {
+        var div2 = document.getElementById("selArr");
+        while (div2.hasChildNodes()) {
+            div2.removeChild(div2.firstChild);
+        }
+        var b0 = document.createElement('option');
+        b0.text = "Select Array";
+        b0.value = -1;
+        div2.appendChild(b0);
+        for (var i = 0; i < data.length; i++) {
+            var b = document.createElement('option');
+            b.text = "Array " + i;
+            b.value = i;
+            div2.appendChild(b);
+        }
+        init();
+    }
+    //  end select - dropdown //
+</script>
 
 <script>
     var scene3d, camera3d, lights3d, controls3d, renderer3d;
-    var meshArr = []
+    var meshArr = [];
+
     function submit3dQuery() {
+        init();
+        dataFile = parseInt(document.getElementById('selData').value);
+        if (dataFile === 0) {
+            data = [...DATA];
+        } else {
+            data = [...JANDATA];
+        }
+        NodeArr = generateRelation(data); // file: relation.js
         CANVAS.style.display = 'none';
         let div = document.getElementById("div3d");
-        div.style.display='block';
-        while(div.hasChildNodes()){
+        div.style.display = 'block';
+        while (div.hasChildNodes()) {
             div.removeChild(div.firstChild);
         }
         init3d();
     }
+</script>
+
+<script>
+    /// global variables ///
+    var data = [...DATA];
+    var NodeArr = generateRelation(data); // file: relation.js
+
+    ///
+    var CANVAS = document.getElementById('nodeCanvas');
+    var CTX = CANVAS.getContext('2d');
+
+    updateArrayData(); // same file
+    init(); // file: same file
+
+    window.onresize = function () {
+        init(); // file: same file
+    };
 </script>

@@ -37,6 +37,8 @@ function Node(keyname, val, lvl, arrIndex) {
         });
         return childKeyNames;
     }
+
+    ////
     this.hasChild = () => {
         if (this.getChildNodes().length > 0) {
             return true;
@@ -57,9 +59,10 @@ function Node(keyname, val, lvl, arrIndex) {
         return s;
     }
 
-
     ////
     this.highlightNode = false;
+
+    ////
     this.drawNodes = (CTX, nodeArr) => {
         SC = (document.getElementById('treeHt').value / 100);
         Radius = (document.getElementById('radius').value / 100);
@@ -109,6 +112,7 @@ function Node(keyname, val, lvl, arrIndex) {
         CTX.fillText(name, this.pos.x - 10, this.pos.y + 40);
     }
 
+    ////
     this.connect = (node, connectColor, tk) => {
         CTX.strokeStyle = connectColor;
         CTX.lineWidth = tk;
