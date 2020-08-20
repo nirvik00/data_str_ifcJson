@@ -70,7 +70,7 @@ function getParentsRecursively(node) {
 function getChildrenRecursively(node) {
     let childNodes = node.getChildNodes();
     childNodes.forEach(r => {
-        c = "rgba(0,0,255,0.25)";
+        c = "rgba(0,0,255,0.15)";
         t = 10;
         node.connect(r, c, t);
         getChildrenRecursively(r);
