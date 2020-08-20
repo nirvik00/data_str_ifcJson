@@ -80,6 +80,8 @@ function getChildrenRecursively(node) {
 //
 //
 function tabularNodeDetails(searchResultNodes) {
+    console.log("tabulate: ", searchResultNodes);
+
     CANVAS.style.display = 'none';
     let tbl = document.createElement('table');
     tbl.className = "dynamic-table";
