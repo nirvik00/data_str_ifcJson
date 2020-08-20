@@ -88,8 +88,8 @@ function Node(keyname, val, lvl, arrIndex) {
 
         // draw the node
         CTX.fillStyle = nodeColor;// 'rgba(0,0,0,0.25)';
-        var R = CTX.canvas.width * HT / 50;
-        var F = CTX.canvas.width * HT / 60;
+        var R = CTX.canvas.width * HT / 100;
+        var F = CTX.canvas.width * HT / 50;
         CTX.lineWidth = tk;
         CTX.beginPath();
         CTX.arc(this.pos.x, this.pos.y, R * Radius/2, 0, 2 * Math.PI);
