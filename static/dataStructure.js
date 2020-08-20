@@ -67,8 +67,8 @@ function Node(keyname, val, lvl, arrIndex) {
         let HT = (document.getElementById('treeHt').value / 100);
         let Radius = (document.getElementById('radius').value / 100);
 
-        let nodeColor = 'rgba(120,120,120,0.25)';
-        let connectColor = 'rgb(150,150,150,0.5)'
+        let nodeColor = 'rgba(120,120,120,0.75)';
+        let connectColor = 'rgba(150,150,150,0.75)'
         let tk = 1;
         if (this.highlightNode == true) {
             nodeColor = 'rgb(255,0,0)';
