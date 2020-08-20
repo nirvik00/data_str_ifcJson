@@ -25,7 +25,7 @@ function runQuery() {
     });
     let searchResultNodes = [];
     let arraySearchResults = queryArrayIndex();
-    console.log("array-input search: ", arrIndex, arraySearchResults);
+    // console.log("array-input search: ", arrIndex, arraySearchResults);
 
     let userInputSearch = [];
     if (searchNode.trim() === "") {
@@ -33,13 +33,13 @@ function runQuery() {
     } else {
         userInputSearch = queryInputNodes(arraySearchResults);
     }
-
-    console.log("user-input search: ", userInputSearch);
+    // console.log("user-input search: ", userInputSearch);
 
     searchResultNodes = userInputSearch;
     searchResultNodes.forEach(node => {
         node.highlightNode = true;
     });
+
     if (queryOption == 0) {
         drawTree(); // file: drawfunc.js
     } else if (queryOption == 1) {
