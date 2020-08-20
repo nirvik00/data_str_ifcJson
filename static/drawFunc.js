@@ -79,7 +79,7 @@ function getChildrenRecursively(node) {
 //
 //
 //
-function displayNodeDetails(searchResultNodes) {
+function tabularNodeDetails(searchResultNodes) {
     CANVAS.style.display = 'none';
     let tbl = document.createElement('table');
     tbl.className = "dynamic-table";
@@ -115,7 +115,6 @@ function displayNodeDetails(searchResultNodes) {
     tbl.appendChild(tr);
 
     tr.setAttribute("id", "dynamic-row-header");
-
 
     var arrIndex = parseInt(document.getElementById('selArr').value);
 
@@ -181,4 +180,5 @@ function getRows(node) {
 
     return tr;
 }
+
 
