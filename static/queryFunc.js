@@ -50,11 +50,10 @@ function runQuery() {
         drawTree(); // file: drawfunc.js
     } else if (queryOption == 1) {
         if (highlight === true) {
-            console.log(highlight);
-            drawPath(searchResultNodes); // file: drawfunc.js
             drawTree();
+            drawPath(searchResultNodes); // file: drawfunc.js
+            console.log('draw path, tree');
         } else {
-            console.log(highlight);
             drawTree();
         }
     }
