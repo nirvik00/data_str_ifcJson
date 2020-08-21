@@ -23,28 +23,40 @@ function runQuery() {
     NodeArr.forEach(node => {
         node.highlightNode = false;
     });
+
     let searchResultNodes = [];
     let arraySearchResults = queryArrayIndex();
     // console.log("array-input search: ", arrIndex, arraySearchResults);
 
     let userInputSearch = [];
+    let highlight = false;
     if (searchNode.trim() === "") {
         userInputSearch = arraySearchResults;
     } else {
         userInputSearch = queryInputNodes(arraySearchResults);
+        highlight = true;
     }
+
     // console.log("user-input search: ", userInputSearch);
 
     searchResultNodes = userInputSearch;
-    searchResultNodes.forEach(node => {
-        node.highlightNode = true;
-    });
+    if (highlight === true) {
+        searchResultNodes.forEach(node => {
+            node.highlightNode = true;
+        });
+    }
 
     if (queryOption == 0) {
         drawTree(); // file: drawfunc.js
     } else if (queryOption == 1) {
-        drawTree(); // file: drawfunc.js
-        drawPath(searchResultNodes); // file: drawfunc.js
+        if (highlight === true) {
+            console.log(highlight);
+            drawPath(searchResultNodes); // file: drawfunc.js
+            drawTree();
+        } else {
+            console.log(highlight);
+            drawTree();
+        }
     }
     else if (queryOption == 2) {
         tabularNodeDetails(searchResultNodes); // file: drawfunc.js
@@ -95,7 +107,7 @@ function queryInputNodes(reqNodesFromArray) {
             }
         }
     }
-    
+
     return reqNodes;
 }
 
