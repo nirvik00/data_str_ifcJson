@@ -60,7 +60,7 @@ function drawPath(searchResultNodes) {
 function getParentsRecursively(node) {
     let parents = node.getParentNodes();
     parents.forEach(p => {
-        c = "rgba(255,0,0,0.05)";
+        c = "rgba(255,0,0,0.1)";
         t = 10;
         node.connect(p, c, t);
         getParentsRecursively(p);
@@ -70,7 +70,7 @@ function getParentsRecursively(node) {
 function getChildrenRecursively(node) {
     let childNodes = node.getChildNodes();
     childNodes.forEach(r => {
-        c = "rgba(0,0,255,0.05)";
+        c = "rgba(0,0,255,0.1)";
         t = 10;
         node.connect(r, c, t);
         getChildrenRecursively(r);
